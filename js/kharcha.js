@@ -22,6 +22,28 @@
 
 /* EXPENSES-START — this block is rewritten by the admin panel */
 const EXPENSES = {
+  2026: [
+    { item: "गुंजन साउंड", amount: 10500, note: "", show: true },
+    { item: "अन्य खर्चा", amount: 100, note: "", show: true },
+    { item: "डीज़ल", amount: 500, note: "", show: true },
+    { item: "चमकी", amount: 1000, note: "", show: true },
+    { item: "घाट जोताई", amount: 600, note: "", show: true },
+    { item: "ट्रैक्टर भाड़ा", amount: 500, note: "", show: true },
+    { item: "रस्सी", amount: 140, note: "", show: true },
+    { item: "ठेला भाड़ा", amount: 250, note: "", show: true },
+    { item: "बाइक पेट्रोल", amount: 200, note: "", show: true },
+    { item: "लाइट वाला पोल चेक", amount: 150, note: "", show: true },
+    { item: "लड़का / मज़दूरी", amount: 550, note: "", show: true },
+    { item: "सड़क साफ़ करवाया", amount: 400, note: "", show: true },
+    { item: "कपड़ा थान", amount: 400, note: "", show: true },
+    { item: "झाड़ू", amount: 100, note: "", show: true },
+    { item: "चूना", amount: 500, note: "", show: true },
+    { item: "पिन", amount: 50, note: "", show: true },
+    { item: "कॉप", amount: 150, note: "", show: true },
+    { item: "गेट", amount: 1800, note: "", show: true },
+    { item: "ठेला भाड़ा और गेट रिटर्न", amount: 200, note: "", show: true },
+    { item: "कचरा सफ़ाई", amount: 1600, note: "", show: true },
+  ],
   2023: [
     { item: "डी.जे. (DJ)", amount: 5100, note: "₹4,600 जमा + ₹500 बाकी", show: true },
     { item: "कपड़ा", amount: 1800, note: "₹1,300 + ₹500", show: true },
@@ -41,6 +63,7 @@ const EXPENSES = {
 //                        so the village still sees the correct total and balance.
 // hiddenAsOther: false → hidden items are left out completely (no balance is shown).
 const EXPENSE_SETTINGS = {
+  2026: { hiddenAsOther: true },
   2023: { hiddenAsOther: true },
 };
 /* EXPENSES-END */
