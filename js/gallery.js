@@ -92,12 +92,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* ==========================================================================
    HOME PAGE DONATION BOX (index.html) — smarter year
-   • Chhath season (Sept–Dec): always shows THIS year, even before the first
-     donation, with a "UPI से दान करें" button.
-   • Rest of the year: shows the latest Chhath with donations.
+   • From Diwali to Usha Arghya (Chhath): shows THIS year, even before the
+     first donation, with a "UPI से दान करें" button.
+   • Rest of the year: shows the latest Chhath with donations as a finished
+     total ("छठ पूजा 2026 में कुल चंदा"), without the UPI button.
    • Shows last year's total for comparison and buttons to switch years.
    Replaces renderHomeStats() from main.js, so main.js is not touched.
    ========================================================================== */
+/* Chanda season: from Diwali (Lakshmi Puja) to Usha Arghya of Chhath, which
+   comes 8 days after Diwali. Only then the box says "इस वर्ष … (अब तक)" and
+   shows "UPI से दान करें". Diwali dates (India, main day): */
+const DIWALI_DATES = {
+  2025: '2025-10-20', 2026: '2026-11-08', 2027: '2027-10-29', 2028: '2028-10-17',
+  2029: '2029-11-05', 2030: '2030-10-26', 2031: '2031-11-14', 2032: '2032-11-02',
+  2033: '2033-10-22', 2034: '2034-11-10', 2035: '2035-10-30'
+};
+const DAYS_DIWALI_TO_USHA_ARGHYA = 8;
+
+function inChandaSeason(now) {
+  const diwali = DIWALI_DATES[now.getFullYear()];
+  if (!diwali) return false;
+  const start = new Date(diwali + 'T00:00:00');
+  const end = new Date(start);
+  end.setDate(end.getDate() + DAYS_DIWALI_TO_USHA_ARGHYA);
+  end.setHours(23, 59, 59);
+  return now >= start && now <= end;
+}
+
 renderHomeStats = async function () {
   const box = document.getElementById('homeStats');
   if (!box) return;
@@ -128,7 +149,7 @@ renderHomeStats = async function () {
 
   const now = new Date();
   const thisYear = now.getFullYear();
-  const inSeason = now.getMonth() >= 8;           // September to December
+  const inSeason = inChandaSeason(now);           // from Diwali to Usha Arghya (Chhath)
   const yearsWithData = Array.from(new Set(records.map(function (r) { return r.year; })))
     .sort(function (a, b) { return b - a; });
   const years = yearsWithData.slice();
@@ -158,7 +179,7 @@ renderHomeStats = async function () {
 
     const compare = previous && previous.count
       ? '<p class="callout-compare">पिछले वर्ष ' + previousYear + ': ' + formatINR(previous.total) +
-        ' · ' + formatCount(previous.count) + ' लोग</p>'
+        ' · ' + (previous.count === 1 ? '1 व्यक्ति' : formatCount(previous.count) + ' लोग') + '</p>'
       : '';
 
     const chips = years.length > 1
